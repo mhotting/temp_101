@@ -34,10 +34,6 @@ if (!isset($_POST["login"]) || !isset($_POST["oldpw"]) || !isset($_POST["newpw"]
 if ($_POST["login"] === "" || $_POST["oldpw"] === "" || $_POST["newpw"] === "")
 	ft_error();
 
-/* Check if "./../private/passwd" exists */
-if (!file_exists("./../private/") || !file_exists("./../private/passwd"))
-	ft_error();
-
 /* Store accounts from passwd file if accounts exist */
 /* Check if account to add does not exist */
 $accounts = file_get_contents("./../private/passwd");
