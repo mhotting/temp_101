@@ -41,25 +41,29 @@ if (!file_exists("./../private/") || !file_exists("./../private/passwd"))
 /* Store accounts from passwd file if accounts exist */
 /* Check if account to add does not exist */
 $accounts = file_get_contents("./../private/passwd");
+if ($accounts === false)
+	ft_error();
 $accounts = unserialize($accounts);
 if (!$accounts || !ft_is_login_stored($_POST["login"], $accounts))
 	ft_error();
 	
 /* Check oldpw and set new */
 $oldpw_hash = hash("whirlpool", $_POST["oldpw"]);
-foreach ($accounts as $account)
+foreach ($accounts as $key => $account)
 {
 	if ($account["login"] === $_POST["login"])
 	{
 		if ($account["passwd"] !== $oldpw_hash)
 			ft_error();
-		$account["passwd"] = hash("whirlpool", $_POST["newpw"]);
+		$accounts[$key]["passwd"] = hash("whirlpool", $_POST["newpw"]);
 		break ;
 	}
 }
 
 /* Write new data to passwd file */
-file_put_contents("./../private/passwd", serialize($accounts));
+$ok = file_put_contents("./../private/passwd", serialize($accounts));
+if ($ok === false)
+	ft_error();
 echo("OK\n");
 
 ?>
