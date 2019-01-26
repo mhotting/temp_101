@@ -15,18 +15,22 @@ function ft_error()
 /********************
 *       MAIN        *
 ********************/
-/* Checks if $_POST is well set */
-if (!isset($_POST["login"]) || !isset($_POST["passwd"]))
-	ft_error();
 
-/* Check if $_POST are empty */
-if ($_POST["login"] == "" || $_POST["passwd"] == "")
-	ft_error();
+if (!isset($_SESSION["loggued_on_user"]) || $_SESSION["loggued_on_user"] === "")
+{
+	/* Checks if $_POST is well set */
+	if (!isset($_POST["login"]) || !isset($_POST["passwd"]))
+		ft_error();
 
-/* Check if login/passwd are OK */
-if (!auth($_POST["login"], $_POST["passwd"]))
-	ft_error();
-$_SESSION["loggued_on_user"] = $_POST["login"];
+	/* Check if $_POST are empty */
+	if ($_POST["login"] == "" || $_POST["passwd"] == "")
+		ft_error();
+
+	/* Check if login/passwd are OK */
+	if (!auth($_POST["login"], $_POST["passwd"]))
+		ft_error();
+	$_SESSION["loggued_on_user"] = $_POST["login"];
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
