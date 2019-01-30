@@ -89,10 +89,8 @@ class Camera {
     }
 
     // Converts "world vertex" into "screen vertex" displayable
-    public function watchVertex( Vertex $worldVertex ) {
-		$temp = $this->_tRtT->transformVertex( $worldVertex );
-		$temp = $this->_proj->transformVertex( $temp );
-		return ($temp );
+    function watchVertex( Vertex $worldVertex ) {
+		return ( $this->_proj->transformVertex( $this->_tRtT->transformVertex( $worldVertex ) ) );
     }
 }
 ?>

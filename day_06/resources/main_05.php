@@ -81,17 +81,16 @@ $origin = $cam->watchVertex( $origin );
 
 
 $repere = makeRepere();
-$repere = $S->transformMesh( $repere );
-$repere = $cam->watchMesh( $repere );
-$renderer->renderMesh( $repere, Render::EDGE );
+$repere = $S->transformVertex( $repere );
+$repere = $cam->watchVertex( $repere );
+$renderer->renderVertex( $repere, Render::VERTEX );
 $renderer->renderVertex( $origin );
-
 
 $cube = makeColoredCube( 0.0, 0.0, 0.0, 1.0 );
 $M = $T->mult( $RX )->mult( $RY )->mult( $S );
-$cube = $M->transformMesh( $cube );
-$cube = $cam->watchMesh( $cube );
-$renderer->renderMesh( $cube, Render::RASTERIZE );
+$cube = $M->transformVertex( $cube );
+$cube = $cam->watchVertex( $cube );
+$renderer->renderVertex( $cube, Render::RASTERIZE );
 
 
 $renderer->develop();

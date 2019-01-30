@@ -221,7 +221,7 @@ class Matrix {
     }
 
     // Returns a Vertex corresponding to this matrix applied to arg vertex
-    public function transformVertex( Vertex $vtx ) {
+    function transformVertex( Vertex $vtx ) {
         $res = array();
         for ( $i = 0; $i < 4; $i++ ) {
             $res[$i] = 0;

@@ -20,4 +20,8 @@ public static function doc() {
 public function watchVertex( Vertex $worldVertex )
 
 The objects can evaluate the camera projection for a real world object
+An attribute called "verbose" is a boolean, default set to False
+By setting it to true you can display more info on the class mechanics.
+
+NB: the control of the data types is up to you (except for the origin Vertex)
 ---------------------------------------------------------------------- Camera ->

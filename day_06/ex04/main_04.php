@@ -20,7 +20,7 @@ Matrix::$verbose = False;
 print( Camera::doc() );
 Camera::$verbose = True;
 
-$vtxO = new Vertex( array( 'x' => 20.0, 'y' => 20.0, 'z' => 80.0 ) );
+$vtxO = new Vertex( array( 'x' => 0, 'y' => 0, 'z' => 0.0 ) );
 $R    = new Matrix( array( 'preset' => Matrix::RY, 'angle' => M_PI ) );
 $cam  = new Camera( array( 'origin' => $vtxO,
 						   'orientation' => $R,
@@ -31,5 +31,7 @@ $cam  = new Camera( array( 'origin' => $vtxO,
 						   'far' => 100.0) );
 
 print( $cam . PHP_EOL );
-
+$V = new Vertex( array( 'x' => -1, 'y' => 10, 'z' => 0 ) );
+$a = $cam->watchVertex($V);
+echo("$a\n");
 ?>
