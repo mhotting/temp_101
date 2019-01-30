@@ -214,7 +214,4 @@ class Matrix {
         return ( new Vertex( array( 'x' => $res[0], 'y' => $res[1], 'z' => $res[2] ) ) );
     }
 }
-print( 'Or along the OY axis :' . PHP_EOL );
-$RY = new Matrix( array( 'preset' => Matrix::RZ, 'angle' => M_PI_2 ) );
-print( $RY . PHP_EOL . PHP_EOL );
 ?>

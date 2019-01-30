@@ -47,11 +47,20 @@ class Vector {
 
     // Returns a normalized copy of the vector
     public function normalize() {
-        $dest = array(
-            'x' => $this->_x / $this->magnitude(),
-            'y' => $this->_y / $this->magnitude(),
-            'z' => $this->_z / $this->magnitude()
-        );
+        if ( $this->magnitude() != 0 ) {
+            $dest = array(
+                'x' => $this->_x / $this->magnitude(),
+                'y' => $this->_y / $this->magnitude(),
+                'z' => $this->_z / $this->magnitude()
+            );
+        }
+        else {
+            $dest = array(
+                'x' => $this->_x,
+                'y' => $this->_y,
+                'z' => $this->_z
+            );
+        }
         return ( new Vector( array( 'dest' => new Vertex( $dest ) ) ) );
     }
 
