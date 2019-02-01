@@ -1,6 +1,7 @@
 <?php
 
 final class Fox extends Vaisseau {
+    use Doc;
     // Constructor
     public function __construct($xinit, $yinit, $dir) {
         parent::__construct($xinit, $yinit, $dir);

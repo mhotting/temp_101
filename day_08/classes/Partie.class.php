@@ -1,16 +1,7 @@
 <?php
 
-/*
-require_once('./Grille.class.php');
-require_once('./Obstacle.class.php');
-require_once('./Joueur.class.php');
-require_once('./Vaisseau.class.php');
-require_once('./Fox.class.php');
-require_once('./Flotte.class.php');
-require_once('./Panneau.class.php');
-*/
-
 class Partie {
+    use Doc;
     // Attributes
     public static $verbose = False;
     private $_joueur1;
@@ -103,7 +94,5 @@ class Partie {
             return ($this->_joueur2);
     }
 }
-
-//$test = new Partie("n", "b");
 
 ?>

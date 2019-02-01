@@ -1,6 +1,7 @@
 <?php
 
 class Obstacle {
+    use Doc;
     // Attributes
     private $_xpos;
     private $_ypos;

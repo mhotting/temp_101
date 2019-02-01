@@ -1,6 +1,7 @@
 <?php
 
 class Panneau {
+    use Doc;
     // Attributes
     private $_coup;
     private $_joueur;

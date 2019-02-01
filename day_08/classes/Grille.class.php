@@ -1,6 +1,7 @@
 <?php
 
 class Grille {
+    use Doc;
     // Attributes
     private $_height;
     private $_width;

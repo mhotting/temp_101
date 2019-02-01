@@ -2,6 +2,7 @@
 
 session_start();
 // Require files
+require_once( "./Trait/doc.trait.php" );
 require_once( "./classes/Vaisseau.class.php" );
 require_once( "./classes/Fox.class.php" );
 require_once( "./classes/Arme.class.php" );

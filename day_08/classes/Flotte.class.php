@@ -1,6 +1,7 @@
 <?php
 
 class Flotte implements Iterator {
+    use Doc;
     // Attributes
     private $_vaisseaux;
     private $_iter;

@@ -1,6 +1,7 @@
 <?php
 
 class Joueur {
+    use Doc;
     // Attributes
     private $_name;
     private $_flotte;

@@ -1,6 +1,7 @@
 <?php
 
 abstract class Arme {
+    use Doc;
     // Attributes
     protected $_degat;
     protected $_portee;

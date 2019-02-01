@@ -1,6 +1,7 @@
 <?php
 
 abstract class Vaisseau {
+    use Doc;
     // Attributes
     protected $_name;
     protected $_arme;

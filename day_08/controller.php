@@ -3,6 +3,7 @@
 session_start();
 
 // Require files
+require_once( "./Trait/doc.trait.php" );
 require_once( "./classes/Vaisseau.class.php" );
 require_once( "./classes/Fox.class.php" );
 require_once( "./classes/Arme.class.php" );
@@ -134,7 +135,17 @@ if (!isset($_SESSION["partie"]))
     $_SESSION["current"] = $current;
     $_SESSION["panneau"] = serialize($panneau);
 }
-header( "Location: ./partie.php" );
+print(Arme::doc());
+print(Blaster::doc());
+print(Flotte::doc());
+print(Fox::doc());
+print(Grille::doc());
+print(Joueur::doc());
+print(Obstacle::doc());
+print(Panneau::doc());
+print(Partie::doc());
+print(Vaisseau::doc());
+//header( "Location: ./partie.php" );
 
 
 ?>
