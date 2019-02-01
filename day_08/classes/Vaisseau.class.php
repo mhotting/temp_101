@@ -55,6 +55,8 @@ abstract class Vaisseau {
         $dir = $this->_dir;
         $arme = $this->_arme;
         foreach ($flotteEnnemi as $vaisseauEnnemi) {
+            if ($vaisseauEnnemi == null)
+                continue ;
             if ($dir == 1 || $dir == 3) {
                 if ($vaisseauEnnemi->getXpos() == $x) {
                     if ($dir == 1 && ($vaisseauEnnemi->getYpos() < $y && $vaisseauEnnemi->getYpos() >= $y - $arme->getPortee()) )

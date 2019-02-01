@@ -9,7 +9,7 @@ class Flotte implements Iterator {
     // Constructor
     public function __construct($nb, $xinit, $yinit, $dir) {
         $this->_vaisseaux[] = new Fox($xinit, $yinit, $dir);
-        $this->_vaisseaux[] = new Fox($xinit, $yinit, $dir);
+        //$this->_vaisseaux[] = new Fox($xinit, $yinit, $dir);
     }
 
     // Implementation of the Iterator interface

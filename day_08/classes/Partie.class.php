@@ -52,6 +52,8 @@ class Partie {
         $grille = $this->_grille->getMatrix();
         $flotte1 = $this->_joueur1->getFlotte();
         foreach ($flotte1 as $vaisseau) {
+            if ($vaisseau == null)
+                continue ;
             for ($i = $vaisseau->getYpos(); $i < $vaisseau->getYpos() + $vaisseau->getHeight(); $i++) {
                 for ($j = $vaisseau->getXpos(); $j < $vaisseau->getXpos() + $vaisseau->getWidth(); $j++)
                     $grille[$i][$j] = 1;
@@ -59,6 +61,8 @@ class Partie {
         }
         $flotte2 = $this->_joueur2->getFlotte();
         foreach ($flotte2 as $vaisseau) {
+            if ($vaisseau == null)
+                continue ;
             for ($i = $vaisseau->getYpos(); $i < $vaisseau->getYpos() + $vaisseau->getHeight(); $i++) {
                 for ($j = $vaisseau->getXpos(); $j < $vaisseau->getXpos() + $vaisseau->getWidth(); $j++)
                     $grille[$i][$j] = 2;
