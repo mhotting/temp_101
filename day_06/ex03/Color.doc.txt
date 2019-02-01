@@ -1,4 +1,5 @@
 <- Color ----------------------------------------------------------------------
+
 The Color class handles RGB colors.
 
 An instance can be contructed from either a RGB value:

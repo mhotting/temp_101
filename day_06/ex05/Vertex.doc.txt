@@ -1,5 +1,5 @@
 <- Vertex ----------------------------------------------------------------------
-@author: mhotting
+
 The Vertex class enables you to save Vertex geometrical entities.
 A Vertex has 3D coordinates, a variable to manage homogeneous coordinates
 and a specific Color, which is an iteration of the Color class.

@@ -1,4 +1,5 @@
 <- Vector ----------------------------------------------------------------------
+
 A class to manage your vectors.
 You need to include the Vertex and the Color classes to make it work.
 

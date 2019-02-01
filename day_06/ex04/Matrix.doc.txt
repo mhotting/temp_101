@@ -1,4 +1,5 @@
 <- Matrix ----------------------------------------------------------------------
+
 Different types of matrix:
 - const IDENTITY = 'IDENTITY';
 - const SCALE = 'SCALE';
