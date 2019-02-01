@@ -8,10 +8,6 @@ class Blaster extends Arme {
         $this->_portee = 100;
     }
 
-    // Getters
-    public function getDegat() { return ($this->_degat); }
-    public function getPortee() { return ($this->_portee); }
-
 }
 
 

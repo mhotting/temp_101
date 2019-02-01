@@ -10,9 +10,10 @@ abstract class Arme {
     public function __construct($vaisseau) {
         $this->_vaisseau = $vaisseau;
     }
-
-    //toString
-    
+ 
+    // Getters
+    public function getDegat() { return ($this->_degat); }
+    public function getPortee() { return ($this->_portee); }
 }
 
 ?>
