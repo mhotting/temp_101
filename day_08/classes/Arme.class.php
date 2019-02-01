@@ -1,7 +1,8 @@
 <?php
 
-class Arme {
+abstract class Arme {
     // Attributes
+
 
     // Constructor
 
