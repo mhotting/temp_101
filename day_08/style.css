@@ -1,6 +1,20 @@
+#hideAll
+ {
+   position: fixed;
+   left: 0px; 
+   right: 0px; 
+   top: 0px; 
+   bottom: 0px; 
+   background-color: white;
+   z-index: 99; /* Higher than anything else in the document */
+
+ }
+
 #content {
     display: flex;
+    flex-direction: row;
     justify-content: center;
+
 }
 
 #j1p, #j2p {
