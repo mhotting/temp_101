@@ -135,17 +135,6 @@ if (!isset($_SESSION["partie"]))
     $_SESSION["current"] = $current;
     $_SESSION["panneau"] = serialize($panneau);
 }
-print(Arme::doc());
-print(Blaster::doc());
-print(Flotte::doc());
-print(Fox::doc());
-print(Grille::doc());
-print(Joueur::doc());
-print(Obstacle::doc());
-print(Panneau::doc());
-print(Partie::doc());
-print(Vaisseau::doc());
-//header( "Location: ./partie.php" );
-
+header( "Location: ./partie.php" );
 
 ?>

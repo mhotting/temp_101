@@ -1,25 +1,21 @@
-<- Color ----------------------------------------------------------------------
-The Color class handles RGB colors.
+<- Arme ----------------------------------------------------------------------
 
-An instance can be contructed from either a RGB value:
-new Color( array( 'rgb' => 12345 ) );
+Classe de gestion des armes.
+Classe abstraite servant de modèle à de armes qui héritent d'elle.
 
-Or from distinct red, green, blue constitutives:
-new Color( array( 'red' => 255, 'green' => 255, 'blue' => 255 ) );
+Cette classe abstraite définit un constructeur qui attend un objet du
+type Vaisseau.
 
-Red, green, blue constitutives and RGB values are converted to intergers.
-Negative or > to 255 color constitutives are left as is.
-Any other use is undefined behaviour.
+Deux méthodes sont disponibles par défaut:
+-getDegat() qui retourne un entier correspondant aux dégâts que peut
+faire l'arme;
+-getPortee() qui retourne la portée de l'arme;
 
-The class provides the following methods :
+Si vous utilisez cette classe, vous devez vous assurer de lui transmettre
+le(s) bons arguments à la construction: la gestion des types n'est pas
+encore effective et des erreurs imprévues pourraient survenir.
 
-Color   add( Color $rhs );
-Adds each color constitutive and returns a new Color instance.
+NB: Une méthode statique est proposée (doc()) afin de consulter la
+documentation quand bon vous semble.
 
-Color   sub( Color $rhs );
-Substracts each color constitutive and returns a new Color instance.
-
-Color   mult( $f );
-Multiplies each color constitutive by factor $f and returns a new Color
-instance.
----------------------------------------------------------------------- Color ->
+---------------------------------------------------------------------- Arme ->
