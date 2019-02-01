@@ -53,6 +53,16 @@ class Grille {
         return ($str);
     }
 
+    // Reset the matrix
+    public function resetMatrix() {
+        $temp = array();
+        for ($i = 0; $i < $this->_height; $i++) {
+            for ($j = 0; $j < $this->_width; $j++)
+                $temp[$i][$j] = 0;
+        }
+        $this->_matrix = $temp;
+    }
+
     // Getters
     public function getMatrix() { return ($this->_matrix); }
 

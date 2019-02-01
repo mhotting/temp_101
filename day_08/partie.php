@@ -5,6 +5,7 @@ session_start();
 require_once( "./classes/Vaisseau.class.php" );
 require_once( "./classes/Fox.class.php" );
 require_once( "./classes/Arme.class.php" );
+require_once( "./classes/Blaster.class.php" );
 require_once( "./classes/Flotte.class.php" );
 require_once( "./classes/Grille.class.php" );
 require_once( "./classes/Joueur.class.php" );

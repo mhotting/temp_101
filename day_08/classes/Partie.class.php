@@ -21,8 +21,8 @@ class Partie {
 
     // Constructor
     public function __construct($name1, $name2) {
-        $this->_joueur1 = new Joueur($name1, 1, 2, 2, 3);
-        $this->_joueur2 = new Joueur($name2, 1, 145, 95, 1);
+        $this->_joueur1 = new Joueur($this, $name1, 1, 140, 95, 3);
+        $this->_joueur2 = new Joueur($this, $name2, 1, 145, 95, 1);
         $this->_current = 1;
         $this->_grille = new Grille(150, 100);
         $this->_obs = array();
@@ -46,8 +46,8 @@ class Partie {
     private function grilleObstacle() {
         $grille = $this->_grille->getMatrix();
         foreach ($this->_obs as $obs) {
-            for ($i = $obs->getYpos(); $i <= $obs->getYpos() + $obs->getHeight(); $i++) {
-                for ($j = $obs->getXpos(); $j <= $obs->getXpos() + $obs->getWidth(); $j++)
+            for ($i = $obs->getYpos(); $i < $obs->getYpos() + $obs->getHeight(); $i++) {
+                for ($j = $obs->getXpos(); $j < $obs->getXpos() + $obs->getWidth(); $j++)
                     $grille[$i][$j] = 3;
             }
         }
@@ -56,22 +56,35 @@ class Partie {
 
     // Update ship positions on the map
     public function majVaisseau() {
+        $this->_grille->resetMatrix();
+        $this->grilleObstacle();
         $grille = $this->_grille->getMatrix();
         $flotte1 = $this->_joueur1->getFlotte();
         foreach ($flotte1 as $vaisseau) {
-            for ($i = $vaisseau->getYpos(); $i <= $vaisseau->getYpos() + $vaisseau->getHeight(); $i++) {
-                for ($j = $vaisseau->getXpos(); $j <= $vaisseau->getXpos() + $vaisseau->getWidth(); $j++)
+            for ($i = $vaisseau->getYpos(); $i < $vaisseau->getYpos() + $vaisseau->getHeight(); $i++) {
+                for ($j = $vaisseau->getXpos(); $j < $vaisseau->getXpos() + $vaisseau->getWidth(); $j++)
                     $grille[$i][$j] = 1;
             }
         }
         $flotte2 = $this->_joueur2->getFlotte();
         foreach ($flotte2 as $vaisseau) {
-            for ($i = $vaisseau->getYpos(); $i <= $vaisseau->getYpos() + $vaisseau->getHeight(); $i++) {
-                for ($j = $vaisseau->getXpos(); $j <= $vaisseau->getXpos() + $vaisseau->getWidth(); $j++)
+            for ($i = $vaisseau->getYpos(); $i < $vaisseau->getYpos() + $vaisseau->getHeight(); $i++) {
+                for ($j = $vaisseau->getXpos(); $j < $vaisseau->getXpos() + $vaisseau->getWidth(); $j++)
                     $grille[$i][$j] = 2;
             }
         }
         $this->_grille->setMatrix($grille);
+    }
+
+    // Manager fin de tour
+    public function finTour() {
+        if ($this->_current == 1) {
+            $this->_current = 2;
+            $this->_joueur2->nouvPanneau();
+        } elseif ($this->_current == 2) {
+            $this->_current = 1;
+            $this->_joueur1->nouvPanneau();
+        }
     }
 
     // Getters
@@ -82,6 +95,12 @@ class Partie {
             return ($this->_joueur1->getPanneau());
         else
             return ($this->_joueur2->getPanneau());
+    }
+    public function getJoueur($nbJ) {
+        if ($nbJ === 1)
+            return ($this->_joueur1);
+        else
+            return ($this->_joueur2);
     }
 }
 

@@ -31,6 +31,10 @@ class Flotte implements Iterator {
         return $this->_iter < sizeof($this->_vaisseaux);
     }
     
+    // Getters
+    public function getVaisseau($index) {
+        return ($this->_vaisseaux[$index]);
+    }
 }
 
 ?>
