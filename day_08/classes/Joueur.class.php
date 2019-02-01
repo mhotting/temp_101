@@ -25,7 +25,6 @@ class Joueur {
     public function nouvPanneau() {
         $this->_panneau = new Panneau($this);
     }
-
 }
 
 ?>

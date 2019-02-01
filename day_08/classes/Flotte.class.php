@@ -8,11 +8,8 @@ class Flotte implements Iterator {
     // Constructor
     public function __construct($nb, $xinit, $yinit, $dir) {
         $this->_vaisseaux[] = new Fox($xinit, $yinit, $dir);
+        $this->_vaisseaux[] = new Fox($xinit, $yinit, $dir);
     }
-
-    // Destructor
-
-    //toString
 
     // Implementation of the Iterator interface
     public function rewind() {
@@ -32,8 +29,21 @@ class Flotte implements Iterator {
     }
     
     // Getters
-    public function getVaisseau($index) {
-        return ($this->_vaisseaux[$index]);
+    public function getVaisseau($index) { return ($this->_vaisseaux[$index]); }
+    public function getSize() {
+        $cpt = 0;
+        foreach ($this->_vaisseaux as $key => $vaisseau) {
+            $cpt++;
+        }
+        return ($cpt);
+    }
+
+    // Update the "flotte" by checking the "vaisseaux" one by one
+    public function update() {
+        foreach ($this->_vaisseaux as $nb => $vaisseau) {
+            if ($vaisseau->getVie() <= 0)
+                unset($this->_vaisseaux[$nb]);
+        }
     }
 }
 

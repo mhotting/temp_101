@@ -5,6 +5,7 @@ abstract class Vaisseau {
     protected $_name;
     protected $_arme;
     protected $_bouclier;
+    protected $_bouclierMax;
     protected $_vie;
     protected $_xpos;
     protected $_ypos;
@@ -55,16 +56,16 @@ abstract class Vaisseau {
         foreach ($flotteEnnemi as $vaisseauEnnemi) {
             if ($dir == 1 || $dir == 3) {
                 if ($vaisseauEnnemi->getXpos() == $x) {
-                    if ($dir == 1 && ($vaisseauEnnemi->getYpos() <= $y && $vaisseauEnnemi->getYpos() >= $y - $arme->getPortee()) )
+                    if ($dir == 1 && ($vaisseauEnnemi->getYpos() < $y && $vaisseauEnnemi->getYpos() >= $y - $arme->getPortee()) )
                         $vaisseauEnnemi->subir($arme->getDegat());
-                    elseif ($dir == 3 && ($vaisseauEnnemi->getYpos() >= $y && $vaisseauEnnemi->getYpos() <= $y + $arme->getPortee()) )
+                    elseif ($dir == 3 && ($vaisseauEnnemi->getYpos() > $y && $vaisseauEnnemi->getYpos() <= $y + $arme->getPortee()) )
                         $vaisseauEnnemi->subir($arme->getDegat());
                 }
             } else {
                 if ($vaisseauEnnemi->getYpos() == $y) {
-                    if ($dir == 2 && ($vaisseauEnnemi->getXpos() >= $x && $vaisseauEnnemi->getXpos() <= $x + $arme->getPortee()) )
+                    if ($dir == 2 && ($vaisseauEnnemi->getXpos() > $x && $vaisseauEnnemi->getXpos() <= $x + $arme->getPortee()) )
                         $vaisseauEnnemi->subir($arme->getDegat());
-                    elseif ($dir == 4 && ($vaisseauEnnemi->getXpos() <= $x && $vaisseauEnnemi->getXpos() >= $x - $arme->getPortee()) )
+                    elseif ($dir == 4 && ($vaisseauEnnemi->getXpos() < $x && $vaisseauEnnemi->getXpos() >= $x - $arme->getPortee()) )
                         $vaisseauEnnemi->subir($arme->getDegat());
                 }
             }
@@ -79,6 +80,11 @@ abstract class Vaisseau {
             $this->_vie--;
     }
 
+    // Recharger bouclier
+    public function load() {
+        if ($this->_bouclier < $this->_bouclierMax)
+            $this->_bouclier++;
+    }
     // Getters
     public function getName() { return ($this->_name); }
     public function getXpos() { return ($this->_xpos); }

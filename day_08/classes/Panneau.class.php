@@ -31,6 +31,7 @@ class Panneau {
             $vitesse = $vaisseau->getVitesse();
             $bouclier = $vaisseau->getBouclier();
             $dir = $vaisseau->getDir();
+            $dirName = ($dir == 1 ? "haut" : ($dir == 2 ? "Droite" : ($dir == 3 ? "Bas" : "Gauche")));
             $attaque = $vaisseau->getArme()->getDegat();
             $portee = $vaisseau->getArme()->getPortee();
             $str.= "<table>";
@@ -38,22 +39,21 @@ class Panneau {
             $str .= "<tr><td></td><td>" . $up . "</td><td></td><td>" . $shoot . "</td></tr>";
             $str .= "<tr><td>" . $left . "</td><td></td><td>" . $right . "</td><td>" . $reload . "</td></tr>";
             $str .= "<tr><td></td><td>" . $down . "</td><td></td><td>" . $wait . "</td></tr>";
-            $str .= "<tr><td>PV: " . $vie . "</td><td>PB: " . $bouclier . "</td><td>Vit: " . $vitesse . "</td><td>Dir: ". $dir . "</td></tr>";
+            $str .= "<tr><td>PV: " . $vie . "</td><td>PB: " . $bouclier . "</td><td>Vit: " . $vitesse . "</td><td>Dir: ". $dirName . "</td></tr>";
             $str .= "<tr><td colspan=\"2\">Attaque: " . $attaque . "</td><td colspan=\"2\">Portee: " . $portee . "</td></tr>";
 
-            $str .= "</table>";
+            $str .= "</table><br />";
         }
         return ($str);
     }
 
     // Diminue le nb de coups restants
-    public function coupFini() {
-        $this->_coup--;
+    public function coupFini($nb) {
+        $this->_coup -= $nb;
     }
 
     // Getters
     public function getCoup() { return ($this->_coup); }
-    
 }
 
 ?>

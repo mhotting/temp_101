@@ -21,8 +21,8 @@ class Partie {
 
     // Constructor
     public function __construct($name1, $name2) {
-        $this->_joueur1 = new Joueur($this, $name1, 1, 140, 95, 3);
-        $this->_joueur2 = new Joueur($this, $name2, 1, 145, 95, 1);
+        $this->_joueur1 = new Joueur($this, $name1, 1, 2, 2, 2, 3);
+        $this->_joueur2 = new Joueur($this, $name2, 1, 146, 98, 1);
         $this->_current = 1;
         $this->_grille = new Grille(150, 100);
         $this->_obs = array();
