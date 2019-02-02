@@ -16,9 +16,7 @@ window.onload = function () {
         }
         if (cook) {
             cook = cook.substring(5, cook.length);
-            console.log(cook);
             cook = cook.split(',');
-            console.log(cook);
             cook.forEach(function(e) {
                 if (e !== "")
                     addTodo(e);

@@ -51,6 +51,13 @@
     });
     balloon.addEventListener("mouseleave", function() {
         var style = getComputedStyle(this);
+        var color = style.backgroundColor;
+        if (color == 'rgb(255, 0, 0)')
+            this.style.backgroundColor = 'blue';
+        else if (color == 'rgb(0, 128, 0)')
+            this.style.backgroundColor = 'red';
+        else
+            this.style.backgroundColor = 'green';
         var width = parseInt(style.width);
         width -= 5;
         var str = width + "px";
