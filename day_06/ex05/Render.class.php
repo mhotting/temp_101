@@ -81,7 +81,7 @@ class Render {
 
     // Saves the PNG image created using $this->_filename
     function develop() {
-        imagestring( $this->_image, 1, $this->_width - 60, $this->_height - 20, "By mhotting", 16777215);
+        imagestring( $this->_image, 1, $this->_width - 60, $this->_height - 20, "By mhotting", 16777210);
         imagepng( $this->_image, $this->_filename );
     }
 }
