@@ -287,7 +287,7 @@ label{
     left:0;
     width:100%;
     background:#FFF;
-    z-index:10
+    z-index:1
 }
 .account,.top_nav{
     background:#1e1e27
@@ -324,7 +324,7 @@ label{
     background:#FFF;
     visibility:hidden;
     opacity:0;
-    /* z-index:1; */
+    z-index:1;
     box-shadow:0 0 25px rgba(63,78,100,.15);
     -webkit-transition:opacity .1s ease;
     transition:all .1s ease
@@ -357,7 +357,7 @@ label{
     -webkit-transform:translateY(-50%);
     transform:translateY(-50%);
     left:15px;
-    /* z-index:1 */
+     z-index:1;
 }
 .logo_container a{
     font-size:24px;
@@ -640,7 +640,7 @@ label{
     float:left;
     width:200px;
     padding-bottom:20px;
-    /* z-index:1 */
+     z-index:1;
 }
 .sidebar_title h5{
     font-size:18px;

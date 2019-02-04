@@ -4,8 +4,8 @@
 function ft_db_connect($name)
 {
 	$username = "root";
-	$passwd = "rootpwd";
-	$host = $_SERVER['REMOTE_ADDR'];
+	$passwd = "";
+	$host = "127.0.0.1";
 	if ($name === "")
 		$link = mysqli_connect($host, $username, $passwd);
 	else
