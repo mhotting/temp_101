@@ -1,0 +1,31 @@
+/* PAGE */
+html {
+    height: 100%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, sans-serif;
+    font-size: 0.9em;
+}
+
+body {
+    height: 100%;
+}
+
+/* HEADER */
+.header {
+    margin: 20px 0;
+}
+.header a {
+    margin: 0 15px 0 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    background: blueviolet;
+    border: 1px solid blueviolet;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+}
+
+.header a:hover {
+    background: white;
+    color: blueviolet;
+    text-decoration: underline;
+}
