@@ -1,12 +1,11 @@
 /* PAGE */
 html {
-    height: 100%;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, sans-serif;
     font-size: 0.9em;
 }
 
 body {
-    height: 100%;
+    margin: 0;
 }
 
 /* HEADER */
@@ -22,10 +21,61 @@ body {
     border-radius: 5px;
     padding: 10px;
     color: white;
+    transition: 0.5s all;
+    font-size: 0.9em;
 }
 
 .header a:hover {
     background: white;
     color: blueviolet;
     text-decoration: underline;
+}
+
+/* CONTENT */
+.content {
+    margin: 50px 20px;
+}
+
+.content fieldset {
+    max-width: 500px;
+    border-radius: 10px;
+    border: 2px solid blueviolet;
+    padding: 15px;
+    background: rgb(245, 245, 255);
+}
+
+.content fieldset legend {
+    color: blueviolet;
+    text-transform: uppercase;
+    font-size: 1.2em;
+}
+
+.content fieldset td {
+    text-align: right;
+    height: 30px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px 20px;
+    border: 1px solid blueviolet;
+    background: white;
+}
+
+input[type="submit"] {
+    width: 50px;
+    height: 30px;
+    background: blueviolet;
+    border: 1px solid blueviolet;
+    color: white;
+    border-radius: 10px;
+    transition: 0.5s all;
+}
+
+input[type="submit"]:hover {
+    background: white;
+    text-decoration: underline;
+    color: blueviolet;
 }

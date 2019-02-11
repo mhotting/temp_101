@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -20,7 +26,9 @@
                     <td>Votre mot de passe:</td>
                     <td><input type="password" name="pwd" placeholder="Saisir mot de passe"></td>
                 </tr>
-                <tr><td colspan="2"><a href="./signup.php">Créer un compte</a></td></tr>
+                <tr>
+                    <td colspan="2"><input type="submit" name="submit" value="OK"></td>
+                </tr>
             </table>
             </form>
         </fieldset>

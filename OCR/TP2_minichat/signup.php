@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,7 +16,7 @@
     <div class="content">
         <fieldset>
             <legend>Créer un compte</legend>
-            <form action="./controller/index.php" method="post">
+            <form action="./controller/signup.php" method="post">
             <table>
                 <tr>
                     <td>Votre pseudo:</td>
@@ -23,6 +29,9 @@
                 <tr>
                     <td>Confirmer votre mot de passe:</td>
                     <td><input type="password" name="confirm_pwd" placeholder="Saisir mot de passe"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" name="submit" value="OK"></td>
                 </tr>
             </table>
             </form>
