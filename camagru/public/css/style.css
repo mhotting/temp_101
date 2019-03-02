@@ -1,0 +1,144 @@
+/* GLOBAL */
+html {
+    height: 100%;
+}
+
+body {
+    background: black;
+    color: aqua;
+    height: 100%;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+
+/* NAVBAR */
+nav {
+    min-height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 8px;
+    background: darkslategray;
+    padding-left: 0;
+    border-bottom: 0.5px solid cornflowerblue;
+    margin-bottom: 10px;
+}
+
+nav a {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    color: cornflowerblue;
+    font-weight: 600;
+    font-size: 1.0em;
+    padding: 18px 12px 0 12px;
+    border-bottom: 2px solid darkslategray;
+    transition: 0.5s all;
+}
+
+nav a:hover {
+    color: aqua;
+    border-bottom-color: aqua;
+    border-bottom-style: inset;
+    background: black;
+}
+
+nav a img {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px 0 0;
+    border: 1px solid cornflowerblue;
+    border-radius: 10px;
+}
+
+.left_nav {
+    margin-left: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.right_nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 60px;
+}
+
+@media screen and (max-width: 767px) {
+    .right_nav {
+        display: none;
+    }
+
+    .left_nav img {
+        display: none;
+    }
+    nav a {
+        padding: 18px 6px 0 6px;
+        text-decoration: underline;
+    }
+}
+
+
+/* FORMS */
+#content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 70%;
+}
+
+#content fieldset {
+    max-width: 500px;
+    border-radius: 5px;
+    border: 2px solid cornflowerblue;
+    padding: 10px;
+    background: darkslategray;
+}
+
+#content fieldset h1 {
+    color: cornflowerblue;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+#content fieldset td {
+    text-align: right;
+    height: 30px;
+}
+
+#content fieldset .password {
+    text-align: left;
+}
+
+#content fieldset .error {
+    text-align: left;
+    font-size: 0.8em;
+    color: orange;
+}
+
+#content fieldset .password a {
+    color: cornflowerblue;
+    text-decoration: none;
+    font-size: 0.8em;
+    transition: 0.5s all;
+}
+
+#content fieldset .password a:hover {
+    color: aqua;
+    text-decoration: underline;
+}
+
+input[type="text"], input[type="password"], input[type="mail"] {
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 20px;
+    border: 1px solid cornflowerblue;
+    background: white;
+}

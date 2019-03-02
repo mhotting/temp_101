@@ -1,7 +1,4 @@
 <?php
 
-if (isset($_GET['action'])) {
-
-} else {
-    
-}
+require_once('./controller/index_controller.php');
+ft_postList();
