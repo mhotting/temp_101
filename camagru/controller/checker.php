@@ -123,8 +123,29 @@ function ft_suscribe_checker() {
         exit();
     }
 
-    // Adding user to the database
+    // Activation mail
     $key = md5(microtime(True) * 100000);
+    $dest = $mail;
+    $subject = "Activer votre compte" ;
+    $head = "From: inscription@camagru.com" ;
+    $content =
+        'Bienvenue sur VotreSite,
+    
+        Pour activer votre compte, veuillez cliquer sur le lien ci dessous
+        ou copier/coller dans votre navigateur internet.
+        
+        http://votresite.com/activation.php?log='.urlencode($pseudo).'&cle='.urlencode($key).'
+        
+        
+        ---------------
+        Ceci est un mail automatique, Merci de ne pas y répondre.';
+    $ok = mail($dest, $subject, $content, $head) ;
+    if (!$ok) {
+        echo('ERROR - Mail cannot be sent.');
+        exit();
+    }
+
+    // Adding user to the database
     $userManager->ft_adduser($pseudo, $mail, $pwd, $key);
     header('Location: ./index.php?action=connect&account=ok') ;
 }
