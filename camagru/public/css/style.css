@@ -86,7 +86,7 @@ nav a img {
 
 /* FORMS */
 #content {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -143,4 +143,13 @@ input[type="text"], input[type="password"], input[type="mail"] {
     margin: 5px 20px;
     border: 1px solid cornflowerblue;
     background: white;
+    color: black;
 }
+
+::placeholder {
+    color: rgb(50,50,50);
+}
+
+
+/* CREATION PAGE */
+#canvas { display: none; }

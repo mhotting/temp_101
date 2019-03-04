@@ -15,5 +15,8 @@
         echo($content);
         echo('</div>');
     ?>
+    <script type="text/javascript">
+        document.getElementById("content").style.display = "flex";
+    </script> 
 </body>
 </html>

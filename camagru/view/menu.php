@@ -6,6 +6,7 @@ if (isset($_SESSION['username'])) {
         <div class="left_nav">
             <a href="./index.php"><img src="./public/img/logo.png" alt="logo">CAMAGRU</a>
             <a href="./index.php?action=gallery">Galerie</a>
+            <a href="./index.php?action=create">Créer</a>
             <a href="./index.php?action=ownprofile">Page personnelle</a>
             <a href="./index.php?action=logout">Déconnexion</a>
         </div>

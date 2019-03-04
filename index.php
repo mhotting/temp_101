@@ -11,6 +11,7 @@
         <li><a href="./TP2_minichat/index.php">TP2: Un petit minichat.</a></li>
         <li><a href="./TP3_BLOG_MVC/index.php">TP3: Premier blog en MVC.</a></li>
         <li><a href="./camagru/index.php">Camagru.</a></li>
+        <li><a href="./test.php">TEST</a></li>
     </ol>
 </body>
 </html>

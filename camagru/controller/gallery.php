@@ -14,6 +14,10 @@ function ft_display_gallery() {
 }
 
 // Displays the photo creation page
-function ft_display_creation() {
-    return ;
+function ft_display_create() {
+    $title = 'CAMAGRU: Création d\'image';
+    ob_start();
+    require_once('./view/create.php');
+    $content = ob_get_clean();
+    require_once('./view/standard.php');
 }
