@@ -20,6 +20,53 @@ function ft_check_pseudo($str) {
     return (false);
 }
 
+// Activates account
+function ft_activate() {
+    // Management of form errors
+    if (!isset($_GET['username']) || !isset($_GET['key'])) {
+        header('Location: ./index.php?action=connect&error=activate');
+        exit();
+    }
+    if ($_GET['username'] == '' || $_GET['key'] == '') {
+        header('Location: ./index.php?action=connect&error=activate');
+        exit();
+    }
+    $pseudo = $_GET['username'];
+    $key = $_GET['key'];
+
+    // Check if the user already exists
+    $userManager = new Usermanager();
+    $query = $userManager->ft_username_exists($pseudo);
+    $nb_user = $query->fetch();
+    $query->closeCursor();
+    if ($nb_user['nb'] == 0) {
+        header('Location: ./index.php?action=connect&error=activate');
+        exit();
+    }
+
+    // Check if the account is active
+    $query = $userManager->ft_check_active($pseudo);
+    $nb_user = $query->fetch();
+    $query->closeCursor();
+    if ($nb_user['nb'] != 0) {
+        header('Location: ./index.php?action=connect&error=alreadyactivated');
+        exit();
+    }
+
+    // Checks if key corresponds to username
+    $query = $userManager->ft_check_activationkey($pseudo, $key);
+    $ok = $query->fetch();
+    $query->closeCursor();
+    if ($ok['nb'] != 1) {
+        header('Location: ./index.php?action=connect&error=activate');
+        exit();
+    }
+
+    // Activates account and redirects to connection
+    $userManager->ft_activate($pseudo);
+    header('Location: ./index.php?action=connect&account=activate');
+}
+
 // Checks if the connection form is ok
 function ft_connect_checker() {
     // Management of form errors
@@ -106,7 +153,7 @@ function ft_suscribe_checker() {
     }
     $pwd = hash('whirlpool', $pwd);
 
-    // Check if the user already exists
+    // Checks if the user already exists
     $userManager = new Usermanager();
     $query = $userManager->ft_username_exists($pseudo);
     $nb_user = $query->fetch();
@@ -124,28 +171,80 @@ function ft_suscribe_checker() {
     }
 
     // Activation mail
-    $key = md5(microtime(True) * 100000);
+    $activationKey = md5(microtime(True) * 100000);
     $dest = $mail;
-    $subject = "Activer votre compte" ;
+    $subject = "CAMAGRU: Activer votre compte" ;
     $head = "From: inscription@camagru.com" ;
     $content =
-        'Bienvenue sur VotreSite,
+        'Bienvenue chez Camagru!
     
-        Pour activer votre compte, veuillez cliquer sur le lien ci dessous
-        ou copier/coller dans votre navigateur internet.
+        Pour activer votre compte, veuillez cliquer sur le lien ci-dessous
+        ou le copier/coller dans votre navigateur internet.
         
-        http://votresite.com/activation.php?log='.urlencode($pseudo).'&cle='.urlencode($key).'
-        
+        http://localhost:8100/perso/camagru/index.php?action=activate&username='.urlencode($pseudo).'&key='.urlencode($activationKey).'
         
         ---------------
-        Ceci est un mail automatique, Merci de ne pas y répondre.';
+        Ceci est un mail automatique, merci de ne pas y repondre.';
     $ok = mail($dest, $subject, $content, $head) ;
     if (!$ok) {
-        echo('ERROR - Mail cannot be sent.');
+        header('Location: ./index.php?action=suscribe&error=mailsent');
         exit();
     }
 
     // Adding user to the database
-    $userManager->ft_adduser($pseudo, $mail, $pwd, $key);
+    $forgottenKey = md5(microtime(True) * 1000);
+    $userManager->ft_adduser($pseudo, $mail, $pwd, $activationKey, $forgottenKey);
     header('Location: ./index.php?action=connect&account=ok') ;
+}
+
+// Checks if the forgotten form is ok
+function ft_forgotten_checker() {
+    // Management of form errors
+    if (!isset($_POST['mail'])) {
+        header('Location: ./index.php?action=forgotten&error=empty');
+        exit();
+    }
+    if ($_POST['mail'] == '') {
+        header('Location: ./index.php?action=forgotten&error=empty');
+        exit();
+    }
+    $mail = $_POST['mail'];
+    if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+        header('Location: ./index.php?action=forgotten&error=badmail');
+        exit();
+    }
+    $userManager = new Usermanager();
+    $query = $userManager->ft_mail_exists($mail);
+    $nb_user = $query->fetch();
+    $query->closeCursor();
+    if ($nb_user['nb'] != 1) {
+        header('Location: ./index.php?action=forgotten&error=badmail');
+        exit();
+    }
+
+    // Preparing the email
+    $query = $userManager->ft_user_info($mail);
+    $info = $query->fetch();
+    $query->closeCursor();
+    $pseudo = $info['nameUser'];
+    $forgottenKey = $info['forgottenKey'];
+    $dest = $mail;
+    $subject = "CAMAGRU: Reinitialiser votre mot de passe." ;
+    $head = "From: inscription@camagru.com" ;
+    $content =
+        'Bienvenue chez Camagru!
+    
+        Pour renouveller votre mot de passe, veuillez cliquer sur le lien ci-dessous
+        ou le copier/coller dans votre navigateur internet.
+        
+        http://localhost:8100/perso/camagru/index.php?action=resetpassword&username='.urlencode($pseudo).'&key='.urlencode($forgottenKey).'
+        
+        ---------------
+        Ceci est un mail automatique, merci de ne pas y repondre.';
+    $ok = mail($dest, $subject, $content, $head) ;
+    if (!$ok) {
+        header('Location: ./index.php?action=forgotten&error=mailsent');
+        exit();
+    }
+    header('Location: ./index.php?action=forgotten&account=ok') ;
 }

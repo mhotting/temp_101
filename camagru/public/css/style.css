@@ -117,11 +117,13 @@ nav a img {
     text-align: left;
 }
 
-#content fieldset .error {
+#content fieldset .error, #content fieldset .account_created {
     text-align: left;
     font-size: 0.8em;
-    color: orange;
 }
+
+#content fieldset .error { color: orange; }
+#content fieldset .account_created { color: lime; }
 
 #content fieldset .password a {
     color: cornflowerblue;

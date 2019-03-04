@@ -29,6 +29,7 @@ function ft_create_db() {
             passwordUser VARCHAR(255) NOT NULL,
             active BOOLEAN DEFAULT FALSE NOT NULL,
             activationKey VARCHAR(255) NOT NULL,
+            forgottenKey VARCHAR(255) NOT NULL,
             creationDate DATETIME DEFAULT NOW() NOT NULL
         );
         CREATE TABLE photo (

@@ -30,3 +30,12 @@ function ft_user_search() {
     $content = '<h1>Recherche</h1>';
     require_once('./view/standard.php');
 }
+
+// Forgotten password
+function ft_forgotten() {
+    $title = 'CAMAGRU: Mot de passe oublié';
+    ob_start();
+    require_once('./view/forgotten.php');
+    $content = ob_get_clean();
+    require_once('./view/standard.php');
+}
