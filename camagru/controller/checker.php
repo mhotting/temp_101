@@ -20,6 +20,72 @@ function ft_check_pseudo($str) {
     return (false);
 }
 
+// Reset Password checker
+function ft_reset_checker() {
+    // Management of form errors - USERNAME AND KEY
+    if (!isset($_POST['username']) || !isset($_POST['key'])) {
+        header('Location: ./index.php?action=connect&error=reset');
+        exit();
+    }
+    if ($_POST['username'] == '' || $_POST['key'] == '') {
+        header('Location: ./index.php?action=connect&error=reset');
+        exit();
+    }
+    $pseudo = $_POST['username'];
+    $forgottenKey = $_POST['key'];
+
+    // Checks if the user already exists
+    $userManager = new Usermanager();
+    $query = $userManager->ft_username_exists($pseudo);
+    $nb_user = $query->fetch();
+    $query->closeCursor();
+    if ($nb_user['nb'] == 0) {
+        header('Location: ./index.php?action=connect&error=reset');
+        exit();
+    }
+
+    // Checks if forgotten key corresponds to the user
+    $userManager = new Usermanager();
+    $query = $userManager->ft_check_forgottenkey($pseudo, $forgottenKey);
+    $ok = $query->fetch();
+    $query->closeCursor();
+    if ($ok['nb'] != 1) {
+        header('Location: ./index.php?action=connect&error=reset');
+        exit();
+    }
+
+    // Management of form errors - PWD AND PWD_CONFIRM
+    if (!isset($_POST['pwd']) || !isset($_POST['pwd_confirm'])) {
+        header('Location: ./index.php?action=resetpassword&username=' . $_POST['username'] . '&key=' . $_POST['key'] . '&error=empty');
+        exit();
+    }
+    if ($_POST['pwd'] == '' || $_POST['pwd_confirm'] == '') {
+        header('Location: ./index.php?action=resetpassword&username=' . $_POST['username'] . '&key=' . $_POST['key'] . '&error=empty');
+        exit();
+    }
+    $pwd = $_POST['pwd'];
+    $confirm_pwd = $_POST['pwd_confirm'];
+    if ($pwd != $confirm_pwd) {
+        header('Location: ./index.php?action=resetpassword&username=' . $_POST['username'] . '&key=' . $_POST['key'] . '&error=match');
+        exit();
+    }
+    if (strlen($pwd) < 6 || strlen($pwd) > 15) {
+        header('Location: ./index.php?action=resetpassword&username=' . $_POST['username'] . '&key=' . $_POST['key'] . '&error=len');
+        exit();
+    }
+    if (!ft_check_pwd($pwd)) {
+        header('Location: ./index.php?action=resetpassword&username=' . $_POST['username'] . '&key=' . $_POST['key'] . '&error=content');
+        exit();
+    }
+
+    // Modifies the password in the database - generates new forgottenKey
+    $pwd = hash('whirlpool', $pwd);
+    $forgottenKey = md5(microtime(True) * 1000);
+    $userManager->ft_update_pwd($pseudo, $pwd, $forgottenKey);
+    header('Location: ./index.php?action=connect&account=reset');
+
+}
+
 // Activates account
 function ft_activate() {
     // Management of form errors

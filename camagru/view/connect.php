@@ -6,12 +6,16 @@
             if (isset($_GET['account']) && $_GET['account'] == 'ok') {
                 echo('<tr><td colspan="2" class="account_created">*Compte créé, un mail d\'activation vous a été envoyé.</td></tr>');
             } elseif (isset($_GET['account']) && $_GET['account'] == 'activate') {
-                echo('<tr><td colspan="2" class="account_created">*Compte activé, Vous pouvez vous connecter!</td></tr>');
+                echo('<tr><td colspan="2" class="account_created">*Compte activé, vous pouvez vous connecter!</td></tr>');
+            } elseif (isset($_GET['account']) && $_GET['account'] == 'reset') {
+                echo('<tr><td colspan="2" class="account_created">*Mot de passe renouvellé, vous pouvez vous connecter!</td></tr>');
             } elseif (isset($_GET['error'])) {
                 if ($_GET['error'] == 'empty')
                     echo('<tr><td colspan="2" class="error">*Erreur: tous les champs doivent être remplis.</td></tr>');
                 elseif ($_GET['error'] == 'exists')
                     echo('<tr><td colspan="2" class="error">*Erreur: le compte n\'existe pas.</td></tr>');
+                elseif ($_GET['error'] == 'reset')
+                    echo('<tr><td colspan="2" class="error">*Erreur: impossible de renouveller, contactez le gestionnaire du site.</td></tr>');
                 elseif ($_GET['error'] == 'active')
                     echo('<tr><td colspan="2" class="error">*Erreur: le compte n\'est pas actif.</td></tr>');
                 elseif ($_GET['error'] == 'activate')
@@ -24,7 +28,7 @@
                     echo('<tr><td colspan="2" class="error">*Erreur: problème de serveur, retentez plus tard.</td></tr>');
             }
         ?>
-        <input type="hidden" name="action" value="connectchecker"
+        <input type="hidden" name="action" value="connectchecker">
         <tr>
             <td>Votre pseudo:</td>
             <td><input type="text" name="pseudo" placeholder="Saisir pseudo" autofocus></td>

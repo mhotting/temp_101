@@ -50,6 +50,9 @@ if (isset($_GET['action']) && $_GET['action'] != '') {
     elseif ($_GET['action'] == 'forgotten') {
         ft_forgotten();
     }
+    elseif ($_GET['action'] == 'resetpassword') {
+        ft_reset();
+    }
     elseif (isset($_GET['error'])) {
         ft_display_error($_GET['error']);
     }
@@ -64,6 +67,8 @@ elseif (isset($_POST['action']) && $_POST['action'] != '') {
         ft_connect_checker();
     elseif ($_POST['action'] == 'forgottenchecker')
         ft_forgotten_checker();
+    elseif ($_POST['action'] == 'resetchecker')
+        ft_reset_checker();
 }
 else {
     ft_display_gallery();

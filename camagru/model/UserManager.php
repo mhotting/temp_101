@@ -59,11 +59,26 @@ final class UserManager extends Manager {
         return ($query);
     }
 
+    // Checks if the forgottenkey of the given user is correct
+    public function ft_check_forgottenkey($username, $key) {
+        $db = $this->ft_connect_db();
+        $query = $db->prepare('SELECT COUNT(*) AS \'nb\' FROM user WHERE nameUser = :nameUser AND forgottenKey = :forgottenKey;');
+        $query->execute(array('nameUser' => $username, 'forgottenKey' => $key));
+        return ($query);
+    }
+
     // Activates the given user in the DB
     public function ft_activate($username) {
         $db = $this->ft_connect_db();
         $query = $db->prepare('UPDATE user SET active = TRUE WHERE nameUser = :nameUser;');
         $query->execute(array('nameUser' => $username));
         $query->closeCursor();
+    }
+
+    // Updates the password in the database
+    public function ft_update_pwd($username, $pwd, $key) {
+        $db = $this->ft_connect_db();
+        $query = $db->prepare('UPDATE user SET passwordUser = :pwd, forgottenKey = :forgottenKey WHERE nameUser = :nameUser;');
+        $query->execute(array('nameUser' => $username, 'pwd' => $pwd, 'forgottenKey' => $key));
     }
 }
