@@ -153,3 +153,8 @@ input[type="text"], input[type="password"], input[type="mail"] {
 
 /* CREATION PAGE */
 #canvas { display: none; }
+
+#photo, .output {
+    height: 240px;
+    width: 320px;
+}

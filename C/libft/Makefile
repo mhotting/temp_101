@@ -114,11 +114,13 @@ CC =		gcc
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@ar rc $(NAME) $(OBJ2)
+	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 
 %.o : %.c $(HEADER)
 	@gcc -o $@ -c $< $(CFLAGS)
+
+.PHONY: clean fclean re
 
 clean:
 	@/bin/rm -f $(OBJ)

@@ -1,4 +1,20 @@
-<div class="create_left">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CAPTURE</title>
+    <style>
+        #canvas { display: none; }
+        #photo, .output {
+            height: 240px;
+            width: 320px;
+        }
+    </style>
+</head>
+<body>
+    <div class="create_left">
         <div class="create_left_top">
             <div class="camera">
                 <table>
@@ -104,3 +120,5 @@
         window.addEventListener('load', startup, false);
     })();
     </script>
+</body>
+</html>
