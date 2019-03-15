@@ -174,7 +174,16 @@ function ft_connect_checker() {
         header('Location: ./index.php?action=connect&error=pwd');
         exit();
     }
-    $_SESSION['username'] = $pwd;
+
+    // Adding user DB id in session
+    $query = $userManager->ft_user_info(array('username' => $pseudo));
+    $user_info = $query->fetch();
+    $query->closeCursor();
+    $user_id = $user_info['idUser'];
+    print_r($user_info);
+
+    $_SESSION['username'] = $pseudo;
+    $_SESSION['idUser'] = $user_id;
     header('Location: ./index.php');
 }
 

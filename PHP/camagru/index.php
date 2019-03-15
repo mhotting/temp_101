@@ -69,6 +69,8 @@ elseif (isset($_POST['action']) && $_POST['action'] != '') {
         ft_forgotten_checker();
     elseif ($_POST['action'] == 'resetchecker')
         ft_reset_checker();
+    elseif ($_POST['action'] == 'createchecker')
+        ft_create_checker();
 }
 else {
     ft_display_gallery();

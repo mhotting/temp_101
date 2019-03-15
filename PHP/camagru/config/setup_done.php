@@ -17,10 +17,13 @@ function ft_create_db() {
     // Table creation
     $db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $db->exec('
-        CREATE TABLE image (
+        CREATE TABLE clipart (
             idImage INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            nameImage VARCHAR(255) NOT NULL,
-            urlImage VARCHAR(255) NOT NULL
+            nameImage VARCHAR(255) NOT NULL
+        );
+        CREATE TABLE frame (
+            idImage INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            nameImage VARCHAR(255) NOT NULL
         );
         CREATE TABLE user (
             idUser INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -77,4 +80,21 @@ function ft_create_db() {
         ADD FOREIGN KEY (idFollower) REFERENCES user(idUser)
         ON DELETE CASCADE;
     ');
+
+    // Data insertion
+    $db->exec("
+        INSERT INTO clipart (nameImage)
+        VALUES
+            ('object_1.png'),
+            ('object_2.png'),
+            ('object_3.png');
+        INSERT INTO frame (nameImage)
+        VALUES
+            ('frame_1.png'),
+            ('frame_2.png'),
+            ('frame_3.png');
+        INSERT INTO user (nameUser, mailUser, passwordUser, active, activationKey, forgottenKey)
+        VALUES
+            ('mad', 'mad83@sfr.fr', '7d73388f9b889b1e59642aee80007658a8b3041bc6b5f52cfc5e88c84b04dff67a74e05eb31280ff609177bb27c6093df4d41ebfdf5be8112220f85ae84d0ce4', TRUE, 'aaa', 'bbb');
+    ");
 }

@@ -90,7 +90,11 @@ nav a img {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    min-height: 70%;
+    min-height: 80%;
+    height: 80%;
+    min-width: 80%;
+    width: 80%;
+    padding: 0;
 }
 
 #content fieldset {
@@ -99,6 +103,7 @@ nav a img {
     border: 2px solid cornflowerblue;
     padding: 10px;
     background: darkslategray;
+    box-shadow: 8px 8px 20px 3px rgba(100, 149, 237, .2);
 }
 
 #content fieldset h1 {
@@ -152,9 +157,102 @@ input[type="text"], input[type="password"], input[type="mail"] {
 
 
 /* CREATION PAGE */
+.create {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 100%;
+    height: 100%;
+    width: 100%;
+}
+
 #canvas { display: none; }
 
-#photo, .output {
+#photo, #video {
     height: 240px;
     width: 320px;
+}
+
+.create_left {
+    min-width: 75%;
+    width: 75%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.create_right {
+    min-width: 25%;
+    width: 25%;
+    min-height: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.create_left_top {
+    min-width: 100%;
+    width: 100%;
+    min-height: 40%;
+    height: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.create_left_bottom {
+    min-width: 100%;
+    width: 100%;
+    min-height: 60%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.camera, .output {
+    min-width: 350px;
+    width: 350px;
+    min-height: 305px;
+    height: 305px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.capture {
+    padding-bottom: 8px;
+}
+
+.create_left_bottom .frames {
+    min-width: 90%;
+    width: 90%;
+    min-height: 100px;
+    height: 40%;
+}
+
+.create_left_bottom .objects {
+    min-width: 90%;
+    width: 90%;
+    min-height: 100px;
+    height: 40%;
+}
+
+.user_gallery {
+    min-width: 95%;
+    width: 95%;
+    min-height: 95%;
+    height: 95%;
+}
+
+.camera, .output, .user_gallery, .frames, .objects {
+    border: 1px solid cornflowerblue;
+    border-radius: 10px;
+    padding: 5px;
+    background: darkslategray;
+    box-shadow: 8px 8px 20px 3px rgba(100, 149, 237, .2);
 }

@@ -3,11 +3,17 @@
 require_once('./model/Manager.php');
 
 final class UserManager extends Manager {
-    // Returns all the information about a given user in the database (according to mail)
-    public function ft_user_info($usermail) {
+    // Returns all the information about a given user in the database (according to mail or pseudo)
+    public function ft_user_info($tab) {
         $db = $this->ft_connect_db();
-        $query = $db->prepare('SELECT * FROM user WHERE mailUser = :mailUser;');
-        $query->execute(array('mailUser' => $usermail));
+        if (isset($tab['mail'])) {
+            $query = $db->prepare('SELECT * FROM user WHERE mailUser = :mailUser;');
+            $query->execute(array('mailUser' => $usermail));
+        }
+        else if (isset($tab['username'])) {
+            $query = $db->prepare('SELECT * FROM user WHERE nameUser = :nameUser;');
+            $query->execute(array('nameUser' => $tab['username']));
+        }
         return ($query);
     }
 

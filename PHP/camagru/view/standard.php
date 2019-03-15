@@ -11,7 +11,7 @@
 <body>
     <?php
         require_once('./view/menu.php');
-        echo('<div class="container" id="content">');
+        echo('<div class="container-fluid" id="content">');
         echo($content);
         echo('</div>');
     ?>
