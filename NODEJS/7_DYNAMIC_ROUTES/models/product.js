@@ -18,7 +18,8 @@ const getProductsFromFile = cb => {
 };
 
 module.exports = class Product {
-  constructor(title, imageUrl, description, price) {
+  constructor(id, title, imageUrl, description, price) {
+    this.id = id;
     this.title = title;
     this.imageUrl = imageUrl;
     this.description = description;
@@ -27,8 +28,34 @@ module.exports = class Product {
 
   save() {
     getProductsFromFile(products => {
-      products.push(this);
-      fs.writeFile(p, JSON.stringify(products), err => {
+      // Check if the current object already have an id
+      if (this.id) {
+        const existingProductIndex = products.findIndex((prod) => prod.id === this.id);
+        const updatedProducts = [...products];
+        updatedProducts[existingProductIndex] = this;
+        fs.writeFile(p, JSON.stringify(updatedProducts), err => {
+          console.log(err);
+        });
+      } else {
+        this.id = Math.random().toString();
+        products.push(this);
+        fs.writeFile(p, JSON.stringify(products), err => {
+          console.log(err);
+        });
+      }
+    });
+  }
+
+  static deleteProduct(id) {
+    getProductsFromFile((products) => {
+      //const updatedProducts = products.filter((prod) => prod.id !== id);
+      const existingProductIndex = products.findIndex((prod) => prod.id === id);
+      if (existingProductIndex === -1) {
+        return ;
+      }
+      const updatedProducts = [...products];
+      updatedProducts.splice(existingProductIndex, 1);
+      fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
         console.log(err);
       });
     });
@@ -36,5 +63,12 @@ module.exports = class Product {
 
   static fetchAll(cb) {
     getProductsFromFile(cb);
+  }
+
+  static findById(id, cb) {
+    getProductsFromFile((products) => {
+      const product = products.find((prod) => prod.id === id);
+      cb(product);
+    });
   }
 };
