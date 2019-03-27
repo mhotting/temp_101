@@ -20,9 +20,9 @@ SRCDIRS	:=	$(shell find . -name '*.c' -exec dirname {} \; | uniq)
 SRCDIRS	:=	$(shell find . -name '*.c' -exec dirname {} \; | uniq | sed 's/\/src//g')
 OBJS	:=	$(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 
-HEADER =	./includes
-CFLAGS =	-Wall -Werror -Wextra -I $(HEADER)
-CC =		gcc
+HEADER	=	./includes
+CFLAGS	=	-Wall -Werror -Wextra -I $(HEADER)
+CC		=	gcc
 
 all: $(NAME)
 
