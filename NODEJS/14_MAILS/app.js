@@ -18,8 +18,6 @@ const store = new MongoDBStore({
   uri: MONGODB_URI,
   collection: 'sessions'
 });
-
-// See the documentation for more info on csurf package
 const csrfProtection = csrf();
 
 app.set('view engine', 'ejs');
@@ -39,7 +37,6 @@ app.use(
     store: store
   })
 );
-
 app.use(csrfProtection);
 app.use(flash());
 
