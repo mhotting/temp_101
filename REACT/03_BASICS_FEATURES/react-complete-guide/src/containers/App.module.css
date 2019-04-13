@@ -1,0 +1,24 @@
+.App {
+  text-align: center;
+}
+
+.App button {
+  border: 2px solid blue;
+  font: inherit;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.App button:hover {
+  background: rgb(228, 246, 252);
+}
+
+.App .red {
+  background: red;
+  color: white;
+  border: 2px solid orange;
+}
+
+.App .red:hover {
+  background: coral;
+}
