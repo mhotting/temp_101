@@ -22,6 +22,8 @@
                     echo('<tr><td colspan="2" class="error">*Erreur: activation impossible, contactez le gestionnaire du site.</td></tr>');
                 elseif ($_GET['error'] == 'alreadyactivated')
                     echo('<tr><td colspan="2" class="error">*Erreur: le compte est déjà activé.</td></tr>');
+                elseif ($_GET['error'] == 'pleaselogin')
+                    echo('<tr><td colspan="2" class="error">*Erreur: Veuillez vous identifier.</td></tr>');
                 elseif ($_GET['error'] == 'pwd')
                     echo('<tr><td colspan="2" class="error">*Erreur: le mot de passe est erroné.</td></tr>');
                 else

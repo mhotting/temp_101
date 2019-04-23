@@ -1,27 +1,46 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Person from './Person/Person';
 
-const persons = (props) => props.persons.map((person, index) => {
-    let personsReturn = null;
-
-    if (props.persons.length === 0) {
-        personsReturn = (
-            <div className="Person">
-                <p>No body to show!</p>
-            </div>
-        )
-    } else {
-        personsReturn = (
-            <Person
-                clicked={() => props.clicked(index)}
-                name={person.name}
-                age={person.age}
-                key={person.id}
-                changed={(event) => props.changed(event, person.id)}
-            />
-        )
+class Persons extends Component {
+    /*
+    static getDerivedStateFromProps(props, state) {
+        console.log('[Persons.js] getDerivedStateFromProps');
+        return (state);
     }
-    return (personsReturn);
-});
+    */
 
-export default persons;
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('[Persons.js] shouldComponentUpdate');
+        if (nextProps.persons !== this.props.persons) {
+            return (true);
+        } else {
+            return (false);
+        }
+    }
+
+    render() {
+        console.log('[Persons.js] rendering...');
+        if (this.props.persons.length === 0) {
+            return (
+                <div className="Person">
+                    <p>No body to show!</p>
+                </div>
+            );
+        } else {
+            return (this.props.persons.map((person, index) => {
+                return (
+                    <Person
+                        clicked={() => this.props.clicked(index)}
+                        name={person.name}
+                        age={person.age}
+                        key={person.id}
+                        changed={(event) => this.props.changed(event, person.id)}
+                    />
+                );
+            }));
+        }
+    }
+}
+
+
+export default Persons;

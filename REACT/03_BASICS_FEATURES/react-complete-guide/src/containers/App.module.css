@@ -4,6 +4,7 @@
 
 .App button {
   border: 2px solid blue;
+  background: white;
   font: inherit;
   padding: 8px;
   cursor: pointer;

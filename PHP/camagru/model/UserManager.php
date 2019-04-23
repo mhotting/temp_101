@@ -8,7 +8,7 @@ final class UserManager extends Manager {
         $db = $this->ft_connect_db();
         if (isset($tab['mail'])) {
             $query = $db->prepare('SELECT * FROM user WHERE mailUser = :mailUser;');
-            $query->execute(array('mailUser' => $usermail));
+            $query->execute(array('mailUser' => $tab['mail']));
         }
         else if (isset($tab['username'])) {
             $query = $db->prepare('SELECT * FROM user WHERE nameUser = :nameUser;');

@@ -188,7 +188,7 @@ function ft_connect_checker() {
 }
 
 // Checks if the suscribe form is ok
-function ft_suscribe_checker() {
+function ft_suscribe_checker($root) {
     // Management of form errors
     if (!isset($_POST['pseudo']) || !isset($_POST['pwd']) || !isset($_POST['pwd_confirm']) || !isset($_POST['mail'])) {
         header('Location: ./index.php?action=suscribe&error=empty');
@@ -256,7 +256,7 @@ function ft_suscribe_checker() {
         Pour activer votre compte, veuillez cliquer sur le lien ci-dessous
         ou le copier/coller dans votre navigateur internet.
         
-        http://localhost:8100/perso/camagru/index.php?action=activate&username='.urlencode($pseudo).'&key='.urlencode($activationKey).'
+        '.$root.'/index.php?action=activate&username='.urlencode($pseudo).'&key='.urlencode($activationKey).'
         
         ---------------
         Ceci est un mail automatique, merci de ne pas y repondre.';
@@ -273,7 +273,7 @@ function ft_suscribe_checker() {
 }
 
 // Checks if the forgotten form is ok
-function ft_forgotten_checker() {
+function ft_forgotten_checker($root) {
     // Management of form errors
     if (!isset($_POST['mail'])) {
         header('Location: ./index.php?action=forgotten&error=empty');
@@ -298,7 +298,8 @@ function ft_forgotten_checker() {
     }
 
     // Preparing the email
-    $query = $userManager->ft_user_info($mail);
+    $tab = array('mail' => $mail);
+    $query = $userManager->ft_user_info($tab);
     $info = $query->fetch();
     $query->closeCursor();
     $pseudo = $info['nameUser'];
@@ -312,10 +313,11 @@ function ft_forgotten_checker() {
         Pour renouveller votre mot de passe, veuillez cliquer sur le lien ci-dessous
         ou le copier/coller dans votre navigateur internet.
         
-        http://localhost:8100/perso/camagru/index.php?action=resetpassword&username='.urlencode($pseudo).'&key='.urlencode($forgottenKey).'
+        '.$root.'/index.php?action=resetpassword&username='.urlencode($pseudo).'&key='.urlencode($forgottenKey).'
         
         ---------------
         Ceci est un mail automatique, merci de ne pas y repondre.';
+    
     $ok = mail($dest, $subject, $content, $head) ;
     if (!$ok) {
         header('Location: ./index.php?action=forgotten&error=mailsent');

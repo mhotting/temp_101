@@ -3,112 +3,87 @@
         <div class="create_left_top">
             <div class="camera">
                 <table>
-                    <tr><td><video id="video"></video></td></tr>
-                    <tr><td align="center"><button class="btn btn-primary my-2 my-sm-0" id="startbutton">Capturer</button></td></tr>
+                    <tr><td colspan="2">
+                        <video id="video"></video>
+                        <div id="video_replace" style="display: none;"><img src="#" alt="#" id="video_replace_image" style="width: 320px;height: 240px;" /></div>
+                        <div id="video_overlay" style="display: none;"><img src="#" alt="#" id="video_overlay_image" /></div>
+                    </td></tr>
+                    <tr>
+                        <td align="center"><button class="btn btn-primary my-2 my-sm-0" id="startbutton">Capturer</button></td>
+                        <td align="center">
+                            <label for="file" class="btn btn-primary label-file">Choisir un fichier</label>
+                            <input id="file" class="input-file" type="file">
+                        </td>
+                        
+                    </tr>
                 </table>
                 <canvas id="canvas"></canvas>
             </div>
             <div class="output">
                 <table>
-                    <tr><td class="capture"><img id="photo" alt="The screen capture will appear in this box."></td></tr>
+                    <tr><td class="capture">
+                        <img id="photo" alt="The screen capture will appear in this box.">
+                        <div id="result_overlay" style="display: none;"><img src="#" alt="#" id="result_overlay_image" /></div>
+                    </td></tr>
                     <tr><td align="center">
                         <form action="./index.php" method="POST">
                             <input type="hidden" name="image" id="image-tag">
+                            <input type="hidden" name="username" value="<?= $_SESSION['username'] ?>">
+                            <input type="hidden" name="idUser" value="<?= $_SESSION['idUser'] ?>">
+                            <input type="hidden" name="overlay" value="none" id="overlay_input">
                             <input type="hidden" name="action" value="createchecker">
-                            <button class="btn btn-primary my-2 my-sm-0" type="submit">Sauvegarder</button>
+                            <button id="saveButton" class="btn btn-primary my-2 my-sm-0" type="submit" style="visibility:hidden;">Sauvegarder</button>
                         </form>
                     </td></tr>
                 </table>
             </div>
         </div>
         <div class="create_left_bottom">
-            <div class="frames">
-                <!-- Put the frames here -->
-                <?= $frames ?>
-            </div>
-            <div class="objects">
-                <!-- Put the objects here -->
-                <?= $objects ?>
-            </div>
+            <div class="outside_objects">
+                <div class="objects">
+                    <?= $cliparts ?>
+                </div>
+            </div> 
         </div>
     </div>
     <div class="create_right">
-        <div class="user_gallery">
-            <!-- I PUT THE USER GALLERY HERE -->
-            <?= $user_gallery ?>
+        <div class="outside_user_gallery">
+            <div class="user_gallery">
+                <?= $user_gallery ?>
+                <?php print_r($temp); ?>
+            </div>
         </div>
+       
     </div>
 </div>
 
+<script type="text/javascript" src="./public/script/create.js"></script>
 <script>
-(function() {
-    var width = 320;    // We will scale the photo width to this
-    var height = 240;     // This will be computed based on the input stream
-    var streaming = false;
-    var video = null;
-    var canvas = null;
-    var photo = null;
-    var startbutton = null;
-    var capturebutton = null;
+    document.querySelector('#file').addEventListener('change', function() {
+        let video = document.querySelector('#video');
+        let video_replace = document.querySelector('#video_replace');
+        let video_replace_image = document.querySelector('#video_replace_image');
+        let allowedTypes = ['png'];
 
-    function startup() {
-        video = document.getElementById('video');
-        canvas = document.getElementById('canvas');
-        photo = document.getElementById('photo');
-        startbutton = document.getElementById('startbutton');
+        // function to extract file data
+        function createThumbnail(file) {    
+            var reader = new FileReader();
 
-        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-        .then(function(stream) {
-            video.srcObject = stream;
-            video.play();
-        })
-        .catch(function(err) {
-            console.log("An error occurred! " + err);
-        });
-
-        video.addEventListener('canplay', function(ev){
-            if (!streaming) {
-            //height = video.videoHeight / (video.videoWidth/width);
-            
-            video.setAttribute('width', width);
-            video.setAttribute('height', height);
-            canvas.setAttribute('width', width);
-            canvas.setAttribute('height', height);
-            streaming = true;
-            }
-        }, false);
-
-        startbutton.addEventListener('click', function(ev){
-            takepicture();
-            ev.preventDefault();
-            let myImg = document.getElementById('photo').src;
-            document.getElementById('image-tag').value = myImg;
-        }, false);
-
-        clearphoto();
-    }
-
-    function clearphoto() {
-        var context = canvas.getContext('2d');
-        context.fillStyle = "#AAA";
-        context.fillRect(0, 0, canvas.width, canvas.height);
-
-        var data = canvas.toDataURL('image/png');
-        photo.setAttribute('src', data);
-    }
-
-    function takepicture() {
-        var context = canvas.getContext('2d');
-        if (width && height) {
-            canvas.width = width;
-            canvas.height = height;
-            context.drawImage(video, 0, 0, width, height);
-            var data = canvas.toDataURL('image/png');
-            photo.setAttribute('src', data);
-        } else {
-            clearphoto();
+            reader.addEventListener('load', function() {    
+                video.style.display = 'none';
+                video_replace.style.display = 'block';
+                video_replace_image.src = this.result;
+            });
+            reader.readAsDataURL(file);
         }
-    }
-    window.addEventListener('load', startup, false);
-})();
+
+        imgType = this.files[0].name.split('.');
+        imgType = imgType[imgType.length - 1].toLowerCase();
+        if (allowedTypes.indexOf(imgType) != -1) {
+            createThumbnail(this.files[0]);
+        } else {
+            alert('Format supporté: png');
+        }
+
+    });
 </script>

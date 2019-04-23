@@ -29,6 +29,7 @@ all: $(NAME)
 $(NAME): buildrepo $(OBJS)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
+	@echo 'libft -- OK'
 
 $(OBJDIR)/%.o : $(SRCDIR)/%.c $(HEADER)
 	@$(CC) $(CFLAGS) -c $< -I $(HEADER) -o $@

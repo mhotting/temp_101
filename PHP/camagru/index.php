@@ -7,6 +7,9 @@ require_once('./controller/checker.php');
 require_once('./controller/profile.php');
 require_once('./controller/util.php');
 
+// Creating a root var to store the web site root address
+$root = 'http://localhost:8100/perso/PHP/camagru';
+
 // Installing database if necessary
 if (file_exists('./config/setup.php')) {
     require_once('./config/setup.php');
@@ -53,6 +56,9 @@ if (isset($_GET['action']) && $_GET['action'] != '') {
     elseif ($_GET['action'] == 'resetpassword') {
         ft_reset();
     }
+    elseif ($_GET['action'] == 'comment') {
+        ft_comment();
+    }
     elseif (isset($_GET['error'])) {
         ft_display_error($_GET['error']);
     }
@@ -62,15 +68,21 @@ if (isset($_GET['action']) && $_GET['action'] != '') {
 }
 elseif (isset($_POST['action']) && $_POST['action'] != '') {
     if ($_POST['action'] == 'suscribechecker')
-        ft_suscribe_checker();
+        ft_suscribe_checker($root);
     elseif ($_POST['action'] == 'connectchecker')
         ft_connect_checker();
     elseif ($_POST['action'] == 'forgottenchecker')
-        ft_forgotten_checker();
+        ft_forgotten_checker($root);
     elseif ($_POST['action'] == 'resetchecker')
         ft_reset_checker();
     elseif ($_POST['action'] == 'createchecker')
         ft_create_checker();
+    elseif ($_POST['action'] == 'commentchecker')
+        ft_comment_checker();
+    elseif ($_POST['action'] == 'deletePicture')
+        ft_delete_picture();
+    elseif ($_POST['action'] == 'enjoy')
+        ft_enjoy();
 }
 else {
     ft_display_gallery();

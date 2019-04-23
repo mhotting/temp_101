@@ -18,3 +18,11 @@ function ft_logout() {
     session_destroy();
     header('Location: ./index.php');
 }
+
+// Test if logged in function
+function ft_is_logged() {
+    if (!isset($_SESSION['idUser'])) {
+        header('Location: ./index.php?action=connect&error=pleaselogin');
+        exit();
+    }
+}
