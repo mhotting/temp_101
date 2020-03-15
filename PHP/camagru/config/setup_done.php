@@ -29,7 +29,8 @@ function ft_create_db() {
             active BOOLEAN DEFAULT FALSE NOT NULL,
             activationKey VARCHAR(255) NOT NULL,
             forgottenKey VARCHAR(255) NOT NULL,
-            creationDate DATETIME DEFAULT NOW() NOT NULL
+            creationDate DATETIME DEFAULT NOW() NOT NULL,
+            notifStatus BOOLEAN DEFAULT TRUE NOT NULL
         );
         CREATE TABLE photo (
             idPhoto INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

@@ -14,6 +14,10 @@ final class UserManager extends Manager {
             $query = $db->prepare('SELECT * FROM user WHERE nameUser = :nameUser;');
             $query->execute(array('nameUser' => $tab['username']));
         }
+        else if (isset($tab['idUser'])) {
+            $query = $db->prepare('SELECT * FROM user WHERE idUser = :idUser;');
+            $query->execute(array('idUser' => $tab['idUser']));
+        }
         return ($query);
     }
 
@@ -86,5 +90,19 @@ final class UserManager extends Manager {
         $db = $this->ft_connect_db();
         $query = $db->prepare('UPDATE user SET passwordUser = :pwd, forgottenKey = :forgottenKey WHERE nameUser = :nameUser;');
         $query->execute(array('nameUser' => $username, 'pwd' => $pwd, 'forgottenKey' => $key));
+        $query->closeCursor();
+    }
+
+    // Updates the user in the database
+    public function ft_update_user($idUser, $pseudo, $mail, $pwd, $notifStatus) {
+        $db = $this->ft_connect_db();
+        if ($pwd != '') {
+            $query = $db->prepare('UPDATE user SET nameUser = :pseudo, mailUser = :mail, passwordUser = :pwd, notifStatus = :notifStatus WHERE idUser = :idUser;');
+            $query->execute(array('pseudo' => $pseudo, 'mail' => $mail, 'pwd' => $pwd, 'notifStatus' => $notifStatus, 'idUser' => $idUser));
+        } else {
+            $query = $db->prepare('UPDATE user SET nameUser = :pseudo, mailUser = :mail, notifStatus = :notifStatus WHERE idUser = :idUser;');
+            $query->execute(array('pseudo' => $pseudo, 'mail' => $mail, 'notifStatus' => $notifStatus, 'idUser' => $idUser));
+        }
+        $query->closeCursor();
     }
 }

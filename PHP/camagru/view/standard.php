@@ -29,5 +29,13 @@
             }
         }
     </script>
+    <script>
+        let i = 0;
+        document.querySelector("#search_input").addEventListener('keyup', function() {
+            this.value += 'H';
+            i++;
+            this.setSelectionRange(i, i);
+        });
+    </script>
 </body>
 </html>

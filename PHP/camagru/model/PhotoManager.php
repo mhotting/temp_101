@@ -61,4 +61,12 @@ final class PhotoManager extends Manager {
         $query->execute(array('idUser' => $idUser, 'photoName' => $photoName));
         $query->closeCursor();
     }
+
+    // Get the id of a photo's author
+    public function ft_get_user_photo($idPhoto) {
+        $db = $this->ft_connect_db();
+        $query = $db->prepare('SELECT idUser FROM photo WHERE idPhoto = :idPhoto;');
+        $query->execute(array('idPhoto' => $idPhoto));
+        return ($query);
+    }
 }

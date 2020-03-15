@@ -309,7 +309,7 @@ function ft_comment() {
 }
 
 // Check the comment
-function ft_comment_checker() {
+function ft_comment_checker($root) {
     ft_is_logged();
     if (!isset($_POST['textComment']) || !isset($_POST['idPhoto']) || $_POST['textComment'] == '') {
         header('Location: ./index.php');
@@ -318,7 +318,47 @@ function ft_comment_checker() {
     $textComment = $_POST['textComment'];
     $idUser = $_SESSION['idUser'];
     $idPhoto = $_POST['idPhoto'];
+
+    // Checking if the given picture exists
+    $photoManager = new PhotoManager();
+    $query = $photoManager->ft_photo_one($idPhoto);
+    $photo = $query->fetch();
+    $query->closeCursor();
+    if (!$photo) {
+        header('Location: ./index.php');
+        exit();
+    }
     $commentManager = new CommentManager();
     $commentManager->ft_add_comment($idPhoto, $idUser, $textComment);
+
+    // Getting the information from the photo's author
+    $query = $photoManager->ft_get_user_photo($idPhoto);
+    $idAuthor = $query->fetch()['idUser'];
+    $query->closeCursor();
+    $userManager = new UserManager();
+    $query = $userManager->ft_user_info(array('idUser' => $idAuthor));
+    $temp = $query->fetch();
+    $mailAuthor = $temp['mailUser'];
+    $notifStatus = $temp['notifStatus'];
+    $query->closeCursor();echo('mail: ' . $mailAuthor . ' notif: ' . $notifStatus);
+
+    // Sending the notification email (if necessary)
+    if ($notifStatus == '1') {
+        $subject = "CAMAGRU: Notification" ;
+        $head = "From: notification@camagru.com" ;
+        $content =
+            'L\'une de vos images a reçu un commentaire!
+            Pour le consulter, cliquez sur le lien suivant:
+            
+            '. $root .'?action=comment&idPhoto=' . $idPhoto . '
+            
+            ---------------
+            Ceci est un mail automatique, merci de ne pas y repondre.';
+        $ok = mail($mailAuthor, $subject, $content, $head) ;
+        if (!$ok) {
+            header('Location: ./index.php?action=comment&idPhoto=' . $idPhoto);
+            exit();
+        }
+    }
     header('Location: ./index.php?action=comment&idPhoto=' . $idPhoto);
 }

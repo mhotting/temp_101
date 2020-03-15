@@ -15,7 +15,7 @@ if (isset($_SESSION['username'])) {
         <div class="right_nav">
             <form action="./index.php" method="GET" class="form-inline my-2 my-lg-0">
                 <input type="hidden" name="action" value="search">
-                <input class="search_input form-control mr-sm-2" type="search" placeholder="Rechercher un membre" aria-label="Search" name="user">
+                <input class="search_input form-control mr-sm-2" type="search" placeholder="Rechercher un membre" aria-label="Search" name="user" id="search_input">
                 <button class="btn btn-primary my-2 my-sm-0" type="submit">Ok</button>
             </form>
         </div>
@@ -41,7 +41,7 @@ if (isset($_SESSION['username'])) {
         <div class="right_nav">
             <form action="./index.php" method="GET" class="form-inline my-2 my-lg-0">
                 <input type="hidden" name="action" value="search">
-                <input class="search_input form-control mr-sm-2" type="search" placeholder="Rechercher un membre" aria-label="Search" name="user">
+                <input class="search_input form-control mr-sm-2" type="search" placeholder="Rechercher un membre" aria-label="Search" name="user" id="search_input">
                 <button class="btn btn-primary my-2 my-sm-0" type="submit">Ok</button>
             </form>
     </nav>

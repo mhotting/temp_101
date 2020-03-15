@@ -642,3 +642,18 @@ input[type="text"], input[type="password"], input[type="mail"] {
     font-style: italic;
     color: lime;
 }
+
+
+/****************************************/
+/*      Ownprofile                      */
+/****************************************/
+.td_radio {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.radio_div {
+    margin: auto 20px;
+}

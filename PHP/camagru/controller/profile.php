@@ -15,7 +15,18 @@ function ft_display_user($username) {
 
 // Displays the profile of a logged in user
 function ft_display_userpage($username) {
+    ft_is_logged();
+    $username = $_SESSION['username'];
     $title = 'CAMAGRU: Page personnelle';
-    $content = '<h1>Page personnelle</h1>';
+
+    // Getting user information
+    $userManager = new UserManager();
+    $query = $userManager->ft_user_info(array('username' => $username));
+    $userInfo = $query->fetch();
+    $query->closeCursor();
+
+    ob_start();
+    require_once('./view/ownprofile.php');
+    $content = ob_get_clean();
     require_once('./view/standard.php');
 }

@@ -8,7 +8,7 @@ require_once('./controller/profile.php');
 require_once('./controller/util.php');
 
 // Creating a root var to store the web site root address
-$root = 'http://localhost:8100/perso/PHP/camagru';
+$root = 'http://localhost:8100/' . $_SERVER['SCRIPT_NAME'];
 
 // Installing database if necessary
 if (file_exists('./config/setup.php')) {
@@ -78,11 +78,13 @@ elseif (isset($_POST['action']) && $_POST['action'] != '') {
     elseif ($_POST['action'] == 'createchecker')
         ft_create_checker();
     elseif ($_POST['action'] == 'commentchecker')
-        ft_comment_checker();
+        ft_comment_checker($root);
     elseif ($_POST['action'] == 'deletePicture')
         ft_delete_picture();
     elseif ($_POST['action'] == 'enjoy')
         ft_enjoy();
+    elseif ($_POST['action'] == 'ownprofilechecker')
+        ft_ownprofile_checker();
 }
 else {
     ft_display_gallery();

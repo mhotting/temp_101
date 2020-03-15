@@ -256,7 +256,7 @@ function ft_suscribe_checker($root) {
         Pour activer votre compte, veuillez cliquer sur le lien ci-dessous
         ou le copier/coller dans votre navigateur internet.
         
-        '.$root.'/index.php?action=activate&username='.urlencode($pseudo).'&key='.urlencode($activationKey).'
+        '.$root.'?action=activate&username='.urlencode($pseudo).'&key='.urlencode($activationKey).'
         
         ---------------
         Ceci est un mail automatique, merci de ne pas y repondre.';
@@ -313,7 +313,7 @@ function ft_forgotten_checker($root) {
         Pour renouveller votre mot de passe, veuillez cliquer sur le lien ci-dessous
         ou le copier/coller dans votre navigateur internet.
         
-        '.$root.'/index.php?action=resetpassword&username='.urlencode($pseudo).'&key='.urlencode($forgottenKey).'
+        '.$root.'?action=resetpassword&username='.urlencode($pseudo).'&key='.urlencode($forgottenKey).'
         
         ---------------
         Ceci est un mail automatique, merci de ne pas y repondre.';
@@ -324,4 +324,85 @@ function ft_forgotten_checker($root) {
         exit();
     }
     header('Location: ./index.php?action=forgotten&account=ok') ;
+}
+
+// Checks if the ownprofile form is ok
+function ft_ownprofile_checker() {
+    ft_is_logged();
+    // Management of form errors
+    if (!isset($_POST['pseudo']) || !isset($_POST['pwd']) || !isset($_POST['pwd_confirm']) || !isset($_POST['mail']) || !isset($_POST['notifStatus'])) {
+        header('Location: ./index.php?action=ownprofile&error=empty');
+        exit();
+    }
+    if ($_POST['pseudo'] == '' || $_POST['mail'] == '' || ($_POST['notifStatus'] != '0' && $_POST['notifStatus'] != '1')) {
+        header('Location: ./index.php?action=ownprofile&error=empty');
+        exit();
+    }
+    $idUser = $_SESSION['idUser'];
+    $pseudo = $_POST['pseudo'];
+    $mail = $_POST['mail'];
+    $notifStatus = $_POST['notifStatus'];
+
+    // Working with pwd
+    $pwd = $_POST['pwd'];
+    $confirm_pwd = $_POST['pwd_confirm'];
+    if ($pwd != $confirm_pwd) {
+        header('Location: ./index.php?action=ownprofile&error=pwdmatch');
+        exit();
+    }
+    if ($pwd != '') {
+        if (strlen($pwd) < 6 || strlen($pwd) > 15) {
+            header('Location: ./index.php?action=ownprofile&error=pwdlen');
+            exit();
+        }
+        if (!ft_check_pwd($pwd)) {
+            header('Location: ./index.php?action=ownprofile&error=pwdcontent');
+            exit();
+        }
+        $pwd = hash('whirlpool', $pwd);
+    }
+    
+    if (strlen($pseudo) < 3 || strlen($pseudo) > 15) {
+        header('Location: ./index.php?action=ownprofile&error=pseudolen');
+        exit();
+    }
+    if (!ft_check_pseudo($pseudo)) {
+        header('Location: ./index.php?action=ownprofile&error=pseudocontent');
+        exit();
+    }
+    if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+        header('Location: ./index.php?action=ownprofile&error=mail_format');
+        exit();
+    }
+    
+    // Checks if the user already exists
+    $userManager = new Usermanager();
+    if ($pseudo != $_SESSION['username']) {
+        $query = $userManager->ft_username_exists($pseudo);
+        $nb_user = $query->fetch();
+        $query->closeCursor();
+        if ($nb_user['nb'] != 0) {
+            header('Location: ./index.php?action=ownprofile&error=pseudoexists');
+            exit();
+        }
+    }
+
+    $query = $userManager->ft_user_info(array('username' => $_SESSION['username']));
+    $dbMail = $query->fetch()['mailUser'];
+    $query->closeCursor();
+    
+    if ($mail != $dbMail) {
+        $query = $userManager->ft_mail_exists($mail);
+        $nb_user = $query->fetch();
+        $query->closeCursor();
+        if ($nb_user['nb'] != 0) {
+            header('Location: ./index.php?action=ownprofile&error=mailexists');
+            exit();
+        }
+    }
+
+    // Updating user in the database
+    $userManager->ft_update_user($idUser, $pseudo, $mail, $pwd, $notifStatus);
+    $_SESSION['username'] = $pseudo;
+    header('Location: ./index.php?action=ownprofile&account=ok') ;
 }
